@@ -1,12 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.mycompany;
 
 import com.mycompany.jukebox.PlaylistEditorInterface;
-import com.mycompany.jukebox.implementation.PlaylistEditor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -14,19 +8,24 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * @author Aleksandr_Bobryshev
  */
 
-//Scope, bean inheritance and getBean(String id) should be added
 public class Main {
 
     public final static ApplicationContext APPLICATION_CONTEXT =
             new ClassPathXmlApplicationContext("beans.xml");
 
     public static void main(String... args) {
+        PlaylistEditorInterface editor = APPLICATION_CONTEXT.getBean("playlistEditorBean", PlaylistEditorInterface.class);
+
         System.out.println("Insert a coin!");
+        editor.setPlaylist(1, 4, 3, 6);
+        editor.printPlaylist();
+    }
 
-        PlaylistEditorInterface editor = APPLICATION_CONTEXT.getBean("playlistEditorBean", PlaylistEditor.class);
+    public static void main2(String... args) {
+        PlaylistEditorInterface editor = (PlaylistEditorInterface) APPLICATION_CONTEXT.getBean("playlistEditorBean2");
 
-        //PlaylistEditorInterface editor = new PlaylistEditor();
-        editor.setPlaylist(1, 2 , 3, 6);
+        System.out.println("Insert a coin!");
+        editor.setPlaylist(5, 6);
         editor.printPlaylist();
     }
 }

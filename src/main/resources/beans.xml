@@ -10,14 +10,14 @@
     <context:component-scan base-package="com.mycompany"/>
     <context:property-placeholder location="classpath:messages.properties" />
 
-    <bean id="songBean" scope="prototype" class="com.mycompany.jukebox.Song">
-    </bean>
+    <bean id="songBean" scope="prototype" class="com.mycompany.jukebox.Song"/>
 
-    <bean id="jukeboxBean" scope="singleton" class="com.mycompany.jukebox.implementation.Jukebox" lazy-init="false">
-    </bean>
+    <bean id="jukeboxBean" class="com.mycompany.jukebox.implementation.JukeboxImpl"/>
 
-    <bean id="playlistEditorBean" scope="singleton" class="com.mycompany.jukebox.implementation.PlaylistEditor" lazy-init="false">
+    <bean id="playlistEditorBean" lazy-init="true" class="com.mycompany.jukebox.implementation.PlaylistEditorImpl">
         <property name="jukebox" ref="jukeboxBean" />
     </bean>
+
+    <bean id="playlistEditorBean2" lazy-init="true" parent="playlistEditorBean"/>
 
 </beans>
